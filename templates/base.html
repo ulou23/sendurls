@@ -1,0 +1,68 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}SEND URLS WSB PRO{% endblock %}
+
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" >SEND your URLS </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div class="text-center">
+    <div class="form-signin">
+
+        <img class="mb-4" src="https://www.getvero.com/wp-content/uploads/2019/03/OG-Promo-Emails@2x.png" alt="" width="400" height="200">
+
+        <form class="form-signin" method="POST" action="/">
+            <input type="url" class="form-control" name="inputlink" placeholder="URL" >
+            <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="submit">SAVE</button>
+        </form>
+
+    <div class="form-signin">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address">
+
+        <div class="col-sm-6">
+            <textarea type="text" class="form-control" rows="5" id="preview"></textarea>
+        </div>
+
+        <div class="col-sm-6">
+            {% for u in urls %}
+                <p>{{u.inputlink}}</p>
+                <form method="post" action="./update">
+                <input type="hidden" value="{{ u.inputlink }}" name="oldurl">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" value="{{ u.inputlink }}" name="newurl">
+
+                <button type="submit" class="btn btn-primary"style="margin-bottom: 5px" value="Update">update</button>
+                </form>
+                <form method="POST" action="./delete">
+                <input type="hidden" value="{{ u.inputlink }}" name="inputlink">
+                    <button type="submit" class="btn btn-primary"style="margin-bottom: 5px" value="Delete">Delete</button>
+                </form>
+            {% endfor %}
+
+        </div>
+
+
+    <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px;  margin-bottom: 10px" type="submit">SEND</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2020 WSB </p>
+    </div>
+</div>
+
+</div>
+
+
+    {% endblock %}
+
+
